@@ -358,6 +358,136 @@ body::after {
     color: #bbb;
     line-height: 1.4;
 }
+
+/* ===== RUNPAD SHELL STYLE ===== */
+.shell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 15px;
+    gap: 20px;
+}
+
+/* верхняя панель */
+.shell-top {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 18px;
+    border-radius: 16px;
+
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(0,255,170,0.3);
+    box-shadow: 0 0 20px rgba(0,255,170,0.2);
+}
+
+/* логотип */
+.shell-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ffaa;
+    text-shadow: 0 0 15px #00ffaa;
+}
+
+/* статус */
+.shell-status {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* плитки меню */
+.shell-grid {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* плитка */
+.tile {
+    position: relative;
+    padding: 18px;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(0,255,170,0.2);
+
+    cursor: pointer;
+    transition: 0.25s;
+    overflow: hidden;
+}
+
+/* glow */
+.tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(0,255,170,0.2), transparent 60%);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.tile:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 0 25px rgba(0,255,170,0.4);
+}
+
+.tile:hover::before {
+    opacity: 1;
+}
+
+/* заголовок плитки */
+.tile h3 {
+    color: #00ffaa;
+    margin-bottom: 6px;
+}
+
+/* описание */
+.tile p {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* кнопка внутри */
+.tile a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00ffaa, #00cc88);
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(0,255,170,0.08) 50%,
+        transparent 60%
+    );
+
+    animation: scanMove 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 </style>
 </head>
 
@@ -371,23 +501,42 @@ body::after {
 
 <!-- ШАПКА -->
 <div class="header">
-    <h1>⚡ KIBERLOGA CLUB ⚡</h1>
-    <p>Играй как профи</p>
+    <div class="shell">
+
+    <div class="shell-top">
+        <div class="shell-logo">⚡ KIBERLOGA SHELL</div>
+        <div class="shell-status">🟢 ONLINE | PC CLUB SYSTEM</div>
+    </div>
+
+    <div class="shell-grid">
+
+        <div class="tile">
+            <h3>📍 Локация</h3>
+            <p>Найти клуб на карте</p>
+            <a href="https://www.google.com/maps?q=40.54018,68.41175">Открыть</a>
+        </div>
+
+        <div class="tile">
+            <h3>🍔 Меню</h3>
+            <p>Еда и напитки клуба</p>
+            <a href="menu.html">Открыть</a>
+        </div>
+
+        <div class="tile">
+            <h3>🎮 Mini Games</h3>
+            <p>Запуск мини игр</p>
+            <a href="Mini Games.html">Играть</a>
+        </div>
+
+        <div class="tile">
+            <h3>🤖 Telegram Bot</h3>
+            <p>Заказы и управление</p>
+            <a href="https://t.me/kiberloga_club_bot">Открыть</a>
+        </div>
+
+    </div>
+
 </div>
-
-<!-- КАРТОЧКИ -->
-<div class="container">
-
-    <div class="card">
-        <h2>📍 Наша локация</h2>
-
-        <iframe class="map"
-        src="https://maps.google.com/maps?q=40.540180248741486, 68.41175556621818&output=embed">
-        </iframe>
-
-        <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=40.54019115680851, 68.41175157909058">
-    Открыть маршрут
-</a>
     </div>
 
     <div class="card">
