@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIBERLOGA CLUB</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Orbitron', Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ФОН (оставляем видео, но делаем красиво) */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: -1;
+}
+
+/* ШАПКА */
+.header {
+    text-align: center;
+    padding: 60px 15px 30px;
+}
+
+.header h1 {
+    font-size: 34px;
+    color: #ff2e6e;
+    text-shadow: 0 0 20px rgba(255, 46, 110, 0.6);
+}
+
+.header p {
+    opacity: 0.7;
+    margin-top: 8px;
+}
+
+/* СЕТКА */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    padding: 15px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* КАРТОЧКИ (ГЛАВНЫЙ УЛУЧШЕННЫЙ ДИЗАЙН) */
+/* ===== НЕОНОВЫЕ КАРТОЧКИ КАК QR ===== */
+.card {
+    position: relative;
+    background: rgba(0,0,0,0.65);
+    border-radius: 20px;
+    padding: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 2px solid rgba(0,255,170,0.3);
+    box-shadow: 0 0 15px rgba(0,255,170,0.3);
+
+    transition: 0.3s ease;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card h2 {
+    color: #00ffaa;
+    text-shadow: 0 0 10px #00ffaa;
+}
+
+/* НЕОНОВАЯ АНИМАЦИЯ */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        #00ffaa,
+        transparent
+    );
+
+    opacity: 0;
+}
+
+/* НАВЕДЕНИЕ */
+.card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 25px #00ffaa, 0 0 50px rgba(0,255,170,0.6);
+}
+
+.card:hover::before {
+    opacity: 0.6;
+    animation: neonMove 2.5s linear infinite;
+}
+
+/* АНИМАЦИЯ */
+@keyframes neonMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ЗАГОЛОВКИ */
+.card h2 {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+/* ТЕКСТ */
+.card p {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* КНОПКИ */
+.button {
+    background: linear-gradient(135deg, #00ffaa, #00cc88);
+    color: #000;
+    box-shadow: 0 0 10px #00ffaa, 0 0 20px rgba(0,255,170,0.6);
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ffaa, 0 0 40px rgba(0,255,170,0.9);
+}
+
+/* КАРТА */
+.map {
+    width: 100%;
+    height: 220px;
+    border: none;
+    border-radius: 14px;
+}
+
+/* TELEGRAM BUTTON */
+.telegram {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: #0088cc;
+    padding: 14px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,136,204,0.4);
+}
+
+/* МОБИЛКА */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .button {
+        width: 100%;
+    }
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image: url("https://images.unsplash.com/photo-1542751371-adc38448a05e");
+    background-size: cover;
+    background-position: center;
+
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: -1;
+}
+
+.news-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    padding: 18px;
+    color: white;
+
+    background: linear-gradient(135deg, #ff2e6e, #ff7a18);
+
+    box-shadow: 0 10px 30px rgba(255, 50, 100, 0.3);
+}
+
+/* фон эффект */
+.news-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at top, rgba(255,255,255,0.2), transparent 40%),
+        radial-gradient(circle at bottom, rgba(0,0,0,0.3), transparent 40%);
+
+    opacity: 0.6;
+}
+
+/* контент поверх */
+.news-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* новость */
+.news-item {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    backdrop-filter: blur(6px);
+    transition: 0.2s;
+}
+
+.news-item:hover {
+    background: rgba(255,255,255,0.2);
+}
+/* КАРТОЧКА НОВОСТЕЙ С МОЛНИЕЙ */
+.news-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    padding: 18px;
+    color: white;
+
+    background: linear-gradient(135deg, #0f0f10, #1a1a1d);
+}
+
+/* МОЛНИЯ */
+.news-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.9) 48%,
+        rgba(255,255,255,0.2) 50%,
+        transparent 60%
+    );
+
+    opacity: 0;
+    animation: lightning 4s infinite;
+}
+
+/* ВСПЫШКА */
+.news-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    opacity: 0;
+    animation: flash 4s infinite;
+}
+
+/* АНИМАЦИЯ МОЛНИИ */
+@keyframes lightning {
+    0%, 90%, 100% { opacity: 0; }
+    92% { opacity: 1; transform: translateX(-100%); }
+    94% { opacity: 0; }
+    96% { opacity: 1; transform: translateX(100%); }
+    98% { opacity: 0; }
+}
+
+/* ВСПЫШКА */
+@keyframes flash {
+    0%, 91%, 100% { opacity: 0; }
+    93% { opacity: 0.4; }
+    97% { opacity: 0.2; }
+}
+
+/* КОНТЕНТ СВЕРХУ */
+.news-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* СТИЛЬ НОВОСТЕЙ */
+.news-item {
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+/* заголовок блока */
+.news-card h2 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+/* каждая новость */
+.news-item {
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 10px;
+
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* заголовок новости */
+.news-item strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* описание */
+.news-item p {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.4;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ВИДЕО -->
+<video class="video-bg" autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-gaming-setup-5176/1080p.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- ШАПКА -->
+<div class="header">
+    <h1>⚡ KIBERLOGA CLUB ⚡</h1>
+    <p>Играй как профи</p>
+</div>
+
+<!-- КАРТОЧКИ -->
+<div class="container">
+
+    <div class="card">
+        <h2>📍 Наша локация</h2>
+
+        <iframe class="map"
+        src="https://maps.google.com/maps?q=40.540180248741486, 68.41175556621818&output=embed">
+        </iframe>
+
+        <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=40.54019115680851, 68.41175157909058">
+    Открыть маршрут
+</a>
+    </div>
+
+    <div class="card">
+        <h2>📦 Наше Меню</h2>
+        <p>Посмотри еду и напитки клуба</p>
+        <a class="button" href="menu.html">Открыть меню</a>
+        <h2>Mini games</h2>
+        <p>Поиграть нашу мини игру)</p>
+        <a class="button" href="Mini Games.html">Открыть игру</a>
+    </div>
+
+   <div class="card">
+    <h2>📞 Контакты администратора</h2>
+
+    <p>Телефон:</p>
+    <a class="button" href="tel:+998916241645">
+        📲 Позвонить
+    </a>
+
+    <p style="margin-top:10px;">Telegram:</p>
+    <a class="button" href="https://t.me/RAFAsharadatel">
+        💬 Написать в Telegram
+    </a>
+</div>
+   <div class="card">
+    <h2>⚙️ Наш телеграм бот</h2>
+
+    <label style="display:block; margin:10px 0; cursor:pointer;">
+        <input type="checkbox"> Заказ ПК на ночь
+    </label>
+
+    <label style="display:block; margin:10px 0; cursor:pointer;">
+        <input type="checkbox"> Пополнить карту аккаунта
+    </label>
+
+    <label style="display:block; margin:10px 0; cursor:pointer;">
+        <input type="checkbox"> Проверить статус занятости ПК или PS
+    </label>
+
+    <a class="button" href="https://t.me/kiberloga_club_bot" style="margin-top:15px; display:inline-block;">
+        🤖 Открыть Telegram бот
+    </a>
+</div>
+
+<div class="card news-card">
+    <div class="news-content">
+
+        <h2>🔥 Новости клуба 🔥</h2>
+
+        <div class="news-item">
+    <strong>17.04.2026</strong>
+    <p>🎮 На PlayStation3 Обновили Футбол PESS 13 transfer 2025-2026</p>
+</div>
+
+<div class="news-item">
+    <strong>17.04.2026</strong>
+    <p>Мы обновили карты на игре LEFT fo Dead 2</p>
+</div>
+
+    </div>
+</div>
+</body>
+</html>
+
